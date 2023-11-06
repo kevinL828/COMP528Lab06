@@ -21,16 +21,19 @@ int main(void){
     int count = 0;
     for(count; count < REPEAT; count++){
 	
-    	tStart = MPI_Wtime();
-    	
+    		tStart = MPI_Wtime();
 		integrationPTP(commSize, myRank);
+		tEnd = MPI_Wtime();
+	        printf("Time taken for ptp = %f milliseconds\n", 1000.0*(tEnd - tStart));	//print wallTimeTaken
+
+	    	\\Add timings for integrationCC.
 		integrationCC(commSize, myRank);
 		
-		tEnd = MPI_Wtime();
+		
 
 		
 		printf("COUNT = %d\n", count);
-		printf("Time taken = %f milliseconds\n", 1000.0*(tEnd - tStart));	//print wallTimeTaken
+		
 
 	}
 
