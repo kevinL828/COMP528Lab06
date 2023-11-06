@@ -7,7 +7,7 @@ int X[MAXSIZE][MAXSIZE], Y[MAXSIZE][MAXSIZE], Z[MAXSIZE][MAXSIZE];
 
 void fill_matrix(int mat[MAXSIZE][MAXSIZE]){
 	srand(time(NULL));
-	/*Write code to fill the values in mat by making it equal to rand()%10*/
+	/*TASK: Write code to fill the values in mat by making it equal to rand()%10*/
 }
 
 void print_matrix(int mat[MAXSIZE][MAXSIZE]){
@@ -32,14 +32,12 @@ int main(int argc, char *argv[]){
   	MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
   	MPI_Comm_size(MPI_COMM_WORLD, &comm_size);
 
-  	/* write code that checkes if MAXSIZE is divisible by comm_size, else exit(-1)*/
 	if(MAXSIZE % comm_size != 0){
 		exit(-1);
 	}
 	
 	/*TASK: If the process is the root rank, fill both X and Y matrices*/
-
-
+	
 	from = my_rank * MAXSIZE/comm_size;
 	to = (my_rank+comm_size) * MAXSIZE/comm_size;
 
