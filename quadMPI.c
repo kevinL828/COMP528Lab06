@@ -26,7 +26,10 @@ int main(void){
 	        printf("Time taken for ptp = %f milliseconds\n", 1000.0*(tEnd - tStart));	//print wallTimeTaken
 
 	    	//Add timings for integrationCC.
+		tStart = MPI_Wtime();
 		integrationCC(commSize, myRank);
+		tEnd = MPI_Wtime();
+		printf("Time taken for cc = %f milliseconds\n", 1000.0*(tEnd - tStart));	//print wallTimeTaken
 		
 		printf("COUNT = %d\n", count);
 		
@@ -59,10 +62,22 @@ void integrationPTP(int commSize, int myRank){
 void integrationCC(int commSize, int myRank){
 	/*Perform the same function as integrationPTP
 	But use MPI_Reduce instead of point to point communications*/
-	int MPI_Reduce(const void *sendbuf, void *recvbuf, int count, 
-               MPI_Datatype datatype, MPI_Op op, int root, MPI_Comm comm);
-
+	// Each process calculates its portion of the integral
+	double mySum = independentRankWork(commSize, myRank);
+	double totalSum = 0.0;
+	
+	// Use MPI_Reduce to sum up all mySum values and send the result to the root process (rank 0)
+	MPI_Reduce(&mySum, &totalSum, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+	
+	// Only the root process will print the final result
+	if (myRank == 0) {
+	printf("Final area using collective communication is %f\n", totalSum);
+	}
+	
+	// Synchronize all processes before leaving the function
+	MPI_Barrier(MPI_COMM_WORLD);
 }
+
 
 double independentRankWork(int commSize, int myRank){
 	/*Set up the number of quads*/
