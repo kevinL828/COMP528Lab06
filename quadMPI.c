@@ -25,14 +25,14 @@ int main(void){
     		tStart = MPI_Wtime();
 		integrationPTP(commSize, myRank);
 		tEnd = MPI_Wtime();
-		ptp_time += 1000.0*(tEnd - tStart);
+		ptp_times += 1000.0*(tEnd - tStart);
 	        printf("Time taken for ptp = %f milliseconds\n", 1000.0*(tEnd - tStart));	//print wallTimeTaken
 
 	    	//Add timings for integrationCC.
 		tStart = MPI_Wtime();
 		integrationCC(commSize, myRank);
 		tEnd = MPI_Wtime();
-		cc_time += 1000.0*(tEnd - tStart);
+		cc_times += 1000.0*(tEnd - tStart);
 		printf("Time taken for cc = %f milliseconds\n", 1000.0*(tEnd - tStart));	//print wallTimeTaken
 		
 		printf("COUNT = %d\n", count);
