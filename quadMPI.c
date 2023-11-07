@@ -18,22 +18,28 @@ int main(void){
 	MPI_Comm_rank(MPI_COMM_WORLD, &myRank);
 	
 	int count = 0;
+	double ptp_times = 0.0;
+	double cc_times = 0.0;
 	for(count; count < REPEAT; count++){
 	
     		tStart = MPI_Wtime();
 		integrationPTP(commSize, myRank);
 		tEnd = MPI_Wtime();
+		ptp_time += 1000.0*(tEnd - tStart);
 	        printf("Time taken for ptp = %f milliseconds\n", 1000.0*(tEnd - tStart));	//print wallTimeTaken
 
 	    	//Add timings for integrationCC.
 		tStart = MPI_Wtime();
 		integrationCC(commSize, myRank);
 		tEnd = MPI_Wtime();
+		cc_time += 1000.0*(tEnd - tStart);
 		printf("Time taken for cc = %f milliseconds\n", 1000.0*(tEnd - tStart));	//print wallTimeTaken
 		
 		printf("COUNT = %d\n", count);
 		
 	}
+	printf("Time total taken for ptp = %f milliseconds\n", ptp_times);	//print wallTimeTaken
+	printf("Time total taken for cc = %f milliseconds\n", cc_times);	//print wallTimeTaken
 
 	MPI_Finalize();
 
