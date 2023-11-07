@@ -25,15 +25,11 @@ int main(void){
 		tEnd = MPI_Wtime();
 	        printf("Time taken for ptp = %f milliseconds\n", 1000.0*(tEnd - tStart));	//print wallTimeTaken
 
-	    	\\Add timings for integrationCC.
+	    	//Add timings for integrationCC.
 		integrationCC(commSize, myRank);
-		
-		
-
 		
 		printf("COUNT = %d\n", count);
 		
-
 	}
 
 	MPI_Finalize();
@@ -63,6 +59,9 @@ void integrationPTP(int commSize, int myRank){
 void integrationCC(int commSize, int myRank){
 	/*Perform the same function as integrationPTP
 	But use MPI_Reduce instead of point to point communications*/
+	int MPI_Reduce(const void *sendbuf, void *recvbuf, int count, 
+               MPI_Datatype datatype, MPI_Op op, int root, MPI_Comm comm);
+
 }
 
 double independentRankWork(int commSize, int myRank){
