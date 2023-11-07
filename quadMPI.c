@@ -4,22 +4,21 @@
 double func(double);
 double independentRankWork(int commSize, int myRank);
 void integrationPTP(int commSize, int myRank);
-void integrationCC(int commSize, int myRank)
+void integrationCC(int commSize, int myRank);
 
 int main(void){
-    const int REPEAT = 5;
+	const int REPEAT = 5;
 
-    double tStart;
-    double tEnd;
-
+	double tStart;
+	double tEnd;
 	int myRank;
 	int commSize;
 	MPI_Init(NULL, NULL);
 	MPI_Comm_size(MPI_COMM_WORLD, &commSize);
 	MPI_Comm_rank(MPI_COMM_WORLD, &myRank);
 	
-    int count = 0;
-    for(count; count < REPEAT; count++){
+	int count = 0;
+	for(count; count < REPEAT; count++){
 	
     		tStart = MPI_Wtime();
 		integrationPTP(commSize, myRank);
@@ -92,5 +91,9 @@ double independentRankWork(int commSize, int myRank){
 		sum += 0.5*width*(func(x) + func(y));
     }
 	return sum;
+}
+
+double func (double x) {
+  return pow(x,1.5)/3.1 - x/log(3.0);
 }
 
