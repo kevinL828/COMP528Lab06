@@ -29,20 +29,22 @@ void print_matrix(int mat[MAXSIZE][MAXSIZE]){
 
 int main(int argc, char *argv[]){
 	int my_rank, comm_size, from, to;
-  	int part_size = MAXSIZE*MAXSIZE/comm_size;
-  	int localX[part_size][MAXSIZE], localY[part_size][MAXSIZE], localZ[part_size][MAXSIZE];
-  	int i, j, k;
-  	int root = 0;
-  
+	// Init comm_size at the beginer, to make sure we can use the right comm_size as a condition
 	MPI_Init (&argc, &argv);
   	MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
   	MPI_Comm_size(MPI_COMM_WORLD, &comm_size);
-
+	// Judge if the MAXSIZE can be devided by comm_size
 	if(MAXSIZE % comm_size != 0){
 		exit(-1);
 	}else{
 		printf("Total Maxsize of the matrix: %d\nComm_size: %d\n",MAXSIZE,comm_size);
 	}
+
+  	int part_size = MAXSIZE*MAXSIZE/comm_size;
+  	int localX[part_size][MAXSIZE], localY[part_size][MAXSIZE], localZ[part_size][MAXSIZE];
+  	int i, j, k;
+  	int root = 0;
+  
 	
 	/*TASK: If the process is the root rank, fill both X and Y matrices*/
 	if(my_rank == 0){
