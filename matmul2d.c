@@ -1,5 +1,7 @@
 #include <mpi.h>
 #include <stdio.h>
+#include <unistd.h>
+
 
 #define MAXSIZE 4			/* change the size of matrices as required*/
 
@@ -55,6 +57,8 @@ int main(int argc, char *argv[]){
 	/*TASK: If the process is the root rank, fill both X and Y matrices*/
 	if(my_rank == 0){
 		fill_matrix(X);
+		//matrix Y always get the same ramdom number with matrix X, try to sleep 1s
+		sleep(1);
 		fill_matrix(Y);
 		
 		printf("The original matrix X:\n");
