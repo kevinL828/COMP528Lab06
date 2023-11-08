@@ -46,6 +46,11 @@ int main(int argc, char *argv[]){
 	if(my_rank == 0){
 		fill_matrix(X);
 		fill_matrix(Y);
+		
+		printf("The original matrix X:\n");
+		print_matrix(X);
+		printf("The original matrix Y:\n");
+		print_matrix(Y);
 	}
 	
 	from = my_rank * MAXSIZE/comm_size;
@@ -71,6 +76,7 @@ int main(int argc, char *argv[]){
 	
   	/*Task: If root print mat Z*/
 	if(my_rank == 0){
+		printf("The final matrix Z:\n");
 		print_matrix(Z);
 	}
 	
