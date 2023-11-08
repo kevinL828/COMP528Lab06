@@ -43,6 +43,10 @@ int main(int argc, char *argv[]){
 	}
 	
 	/*TASK: If the process is the root rank, fill both X and Y matrices*/
+	if(my_rank == 0){
+		fill_matrix(X);
+		fill_matrix(Y);
+	}
 	
 	from = my_rank * MAXSIZE/comm_size;
 	to = (my_rank+comm_size) * MAXSIZE/comm_size;
@@ -65,7 +69,8 @@ int main(int argc, char *argv[]){
 	/*TASK: Use MPI_Gather to pull all localZ from each process and store it in Z at the root process*/
 
   	/*Task: If root print mat Z*/
-
-  MPI_Finalize();
-  return 0;
+	MPI_Gather(localZ, part_size, MPI_INT, Z, part_size, MPI_INT, root, MPI_COMM_WORLD);
+	
+	MPI_Finalize();
+  	return 0;
 }
