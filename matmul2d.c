@@ -41,7 +41,7 @@ int main(int argc, char *argv[]){
 	if(MAXSIZE % comm_size != 0){
 		exit(-1);
 	}else{
-		printf("Total Maxsize of the matrix: %d\nComm_size: %d\n",MAXSIZE,comm_size)
+		printf("Total Maxsize of the matrix: %d\nComm_size: %d\n",MAXSIZE,comm_size);
 	}
 	
 	/*TASK: If the process is the root rank, fill both X and Y matrices*/
@@ -65,11 +65,11 @@ int main(int argc, char *argv[]){
 	MPI_Scatter (X, part_size, MPI_INT, localX, part_size, MPI_INT, root, MPI_COMM_WORLD);
 
   	for (i=from; i<to; i++){
-    	for (j=0; j<MAXSIZE; j++) {
-      		localZ[i][j] = 0;
-      		for (k=0; k<MAXSIZE; k++){
-        		localZ[i][j] += localX[i][k] * Y[k][j];
-    		}
+	    	for (j=0; j<MAXSIZE; j++) {
+	      		localZ[i][j] = 0;
+	      		for (k=0; k<MAXSIZE; k++){
+	        		localZ[i][j] += localX[i][k] * Y[k][j];
+	    		}
 		}
 	}
 
