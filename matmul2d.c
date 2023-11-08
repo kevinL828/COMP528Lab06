@@ -40,6 +40,8 @@ int main(int argc, char *argv[]){
 
 	if(MAXSIZE % comm_size != 0){
 		exit(-1);
+	}else{
+		printf("Total Maxsize of the matrix: %d\nComm_size: %d\n",MAXSIZE,comm_size)
 	}
 	
 	/*TASK: If the process is the root rank, fill both X and Y matrices*/
