@@ -8,6 +8,12 @@ int X[MAXSIZE][MAXSIZE], Y[MAXSIZE][MAXSIZE], Z[MAXSIZE][MAXSIZE];
 void fill_matrix(int mat[MAXSIZE][MAXSIZE]){
 	srand(time(NULL));
 	/*TASK: Write code to fill the values in mat by making it equal to rand()%10*/
+	int i,j;
+	for(i=0; i < MAXSIZE; i++){
+		for(j = 0; j < MAXSIZE; j++){
+			mat[i][j] = rand() % 10;
+		}
+	}
 }
 
 void print_matrix(int mat[MAXSIZE][MAXSIZE]){
