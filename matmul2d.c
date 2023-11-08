@@ -67,9 +67,12 @@ int main(int argc, char *argv[]){
 	}
 
 	/*TASK: Use MPI_Gather to pull all localZ from each process and store it in Z at the root process*/
-
-  	/*Task: If root print mat Z*/
 	MPI_Gather(localZ, part_size, MPI_INT, Z, part_size, MPI_INT, root, MPI_COMM_WORLD);
+	
+  	/*Task: If root print mat Z*/
+	if(my_rank == 0){
+		print_matrix(Z);
+	}
 	
 	MPI_Finalize();
   	return 0;
