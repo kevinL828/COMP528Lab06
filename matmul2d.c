@@ -48,6 +48,8 @@ int main(int argc, char *argv[]){
 	        }
 	        MPI_Finalize();
 	        exit(-1);
+	}else{
+		printf("Total Maxsize of the matrix: %d\nComm_size: %d\n",MAXSIZE,comm_size);
 	}
 
   	int part_size = MAXSIZE*MAXSIZE/comm_size;
